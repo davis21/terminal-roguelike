@@ -13,3 +13,20 @@ target_compile_options(roguelike_core PRIVATE -Wall -Wextra -Wpedantic)
 add_executable(roguelike src/main.cpp)
 target_link_libraries(roguelike PRIVATE roguelike_core)
 target_compile_options(roguelike PRIVATE -Wall -Wextra -Wpedantic)
+
+# ---- Tests ----
+include(FetchContent)
+FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG        v3.15.3
+    GIT_SHALLOW    TRUE
+)
+FetchContent_MakeAvailable(Catch2)
+
+add_executable(roguelike_tests tests/MapTests.cpp)
+target_link_libraries(roguelike_tests PRIVATE roguelike_core Catch2::Catch2WithMain)
+target_compile_options(roguelike_tests PRIVATE -Wall -Wextra -Wpedantic)
+
+enable_testing()
+add_test(NAME map_tests COMMAND roguelike_tests)
