@@ -6,7 +6,6 @@ struct Position
     int x;
     int y;
 
-    // Place it here, inside the struct
     bool operator==(const Position&) const = default; 
 };
 
