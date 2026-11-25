@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_library(roguelike_core src/Map.cpp src/Position.cpp src/Player.cpp src/Game.cpp)
+add_library(roguelike_core src/Map.cpp src/Position.cpp src/Player.cpp src/Game.cpp src/Input.cpp)
 target_include_directories(roguelike_core PUBLIC include)
 target_compile_options(roguelike_core PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -24,7 +24,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(roguelike_tests tests/MapTests.cpp tests/PositionTests.cpp tests/PlayerTests.cpp tests/GameTests.cpp)
+add_executable(roguelike_tests tests/MapTests.cpp tests/PositionTests.cpp tests/PlayerTests.cpp tests/GameTests.cpp tests/InputTests.cpp)
 target_link_libraries(roguelike_tests PRIVATE roguelike_core Catch2::Catch2WithMain)
 target_compile_options(roguelike_tests PRIVATE -Wall -Wextra -Wpedantic)
 
