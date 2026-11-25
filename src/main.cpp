@@ -7,14 +7,14 @@
 int main()
 {
     Map map(10, 5); // Create a map of width 10 and height 5
-    map.setFloor(7, 2); // Set the tile at (7, 2) to be a floor
+    map.setFloor({7, 2}); // Set the tile at (7, 2) to be a floor
 
     // Print the map to the console
     for (int y = 0; y < map.getHeight(); ++y)
     {
         for (int x = 0; x < map.getWidth(); ++x)
         {
-            if (map.isWalkable(x, y))
+            if (map.isWalkable({x, y}))
             {
                 std::cout << '#'; // Floor tile
             }

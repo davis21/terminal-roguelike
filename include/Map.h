@@ -2,6 +2,8 @@
 
 // Different Libraries and headers that will be used in the project.
 #include <vector>
+#include "Position.h"
+
 
 // Enum class to represent the different types of tiles in the game. Each tile can either be a wall or a floor.
 enum class Tile { Wall, Floor };
@@ -22,14 +24,14 @@ public:
     int getHeight() const; // Function to get the height of the map
 
     // Check if the given coordinates (x, y) are within the bounds of the map. Returns true if they are, false otherwise.
-    bool inBounds(int x, int y) const;
+    bool inBounds(Position pos) const;
 
     // Check if the tile at the given coordinates (x, y) is walkable (i.e., it is a floor tile). Returns true if it is walkable, false otherwise.
-    bool isWalkable(int x, int y) const;
+    bool isWalkable(Position pos) const;
 
     // Set the tile at the given coordinates (x, y) to be a floor tile. This function will only set the tile if the coordinates are within bounds.
-    void setFloor(int x, int y);
+    void setFloor(Position pos);
 
     // Get the tile type at the given coordinates (x, y). Returns the Tile enum value for the tile. If the coordinates are out of bounds, it returns Tile::Wall.
-    Tile getTile(int x, int y) const;
+    Tile getTile(Position pos) const;
 };

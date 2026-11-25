@@ -15,7 +15,7 @@ namespace
         Map map(5, 5);
         for (int y = 1; y <= 3; ++y) {
             for (int x = 1; x <= 3; ++x) {
-                map.setFloor(x, y);
+                map.setFloor({x, y});
             }
         }
         return map;
@@ -54,8 +54,8 @@ TEST_CASE("Moving off the edge of the map is blocked", "[game]")
     // A floor tile on the left edge, so the only thing stopping
     // the player is the edge of the map itself.
     Map map(5, 5);
-    map.setFloor(0, 2);
-    map.setFloor(1, 2);
+    map.setFloor({0, 2});
+    map.setFloor({1, 2});
     Game game(map, Position{0, 2});
 
     bool moved = game.tryToMovePlayer(Direction::Left);   // (-1, 2) is off the map
@@ -91,6 +91,6 @@ TEST_CASE("getMap exposes the map the game was built with", "[game]")
     Game game(makeRoomMap(), Position{2, 2});
 
     CHECK(game.getMap().getWidth() == 5);
-    CHECK(game.getMap().isWalkable(2, 2));
-    CHECK_FALSE(game.getMap().isWalkable(0, 0));
+    CHECK(game.getMap().isWalkable({2, 2}));
+    CHECK_FALSE(game.getMap().isWalkable({0, 0}));
 }

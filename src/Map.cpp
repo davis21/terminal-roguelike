@@ -15,29 +15,29 @@ Map::Map(int w, int h) : width(w), height(h)
 int Map::getWidth() const { return width; }
 int Map::getHeight() const { return height; }
 
-bool Map::inBounds(int x, int y) const
+bool Map::inBounds(Position pos) const
 {
-    return (x >= 0 && x < width && y >= 0 && y < height);
+    return (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height);
 }
 
-bool Map::isWalkable(int x, int y) const
+bool Map::isWalkable(Position pos) const
 {
-    return getTile(x, y) == Tile::Floor;
+    return getTile(pos) == Tile::Floor;
 }
 
-void Map::setFloor(int x, int y)
+void Map::setFloor(Position pos)
 {
-    if (inBounds(x, y))
+    if (inBounds(pos))
     {
-        tiles[y][x] = Tile::Floor;
+        tiles[pos.y][pos.x] = Tile::Floor;
     }
 }
 
-Tile Map::getTile(int x, int y) const
+Tile Map::getTile(Position pos) const
 {
-    if (inBounds(x, y))
+    if (inBounds(pos))
     {
-        return tiles[y][x];
+        return tiles[pos.y][pos.x];
     }
     return Tile::Wall; // Return Wall if out of bounds
 }
