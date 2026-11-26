@@ -24,7 +24,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(roguelike_tests tests/MapTests.cpp tests/PositionTests.cpp tests/PlayerTests.cpp tests/GameTests.cpp tests/InputTests.cpp)
+add_executable(roguelike_tests tests/MapTests.cpp tests/PositionTests.cpp tests/PlayerTests.cpp tests/GameTests.cpp tests/InputTests.cpp tests/RendererTests.cpp)
 target_link_libraries(roguelike_tests PRIVATE roguelike_core Catch2::Catch2WithMain)
 target_compile_options(roguelike_tests PRIVATE -Wall -Wextra -Wpedantic)
 

@@ -65,3 +65,58 @@ TEST_CASE("Invalid sizes throw", "[map]")
     REQUIRE_THROWS_AS(Map({-1, 5}), std::invalid_argument); // Assert
     REQUIRE_THROWS_AS(Map({10, 0}), std::invalid_argument); // Assert
 }
+
+TEST_CASE("fromLayout uses the row count and row length as the size", "[map][layout]")
+{
+    Map map = Map::fromLayout({
+        "####",
+        "####",
+        "####",
+    });
+
+    CHECK(map.getWidth() == 4);
+    CHECK(map.getHeight() == 3);
+}
+
+TEST_CASE("fromLayout turns '.' into floor and keeps '#' as wall", "[map][layout]")
+{
+    // Floors at (1, 0) and (3, 2). If x and y were swapped,
+    // (1, 0) would become (0, 1), which is a wall.
+    Map map = Map::fromLayout({
+        "#.##",
+        "####",
+        "###.",
+    });
+
+    CHECK(map.getTile({1, 0}) == Tile::Floor);
+    CHECK(map.getTile({3, 2}) == Tile::Floor);
+    CHECK(map.getTile({0, 1}) == Tile::Wall);
+    CHECK(map.getTile({0, 0}) == Tile::Wall);
+}
+
+TEST_CASE("fromLayout rejects an empty layout", "[map][layout]")
+{
+    REQUIRE_THROWS_AS(Map::fromLayout({}), std::invalid_argument);
+}
+
+TEST_CASE("fromLayout rejects an empty first row", "[map][layout]")
+{
+    REQUIRE_THROWS_AS(Map::fromLayout({""}), std::invalid_argument);
+}
+
+TEST_CASE("fromLayout rejects rows of different lengths", "[map][layout]")
+{
+    REQUIRE_THROWS_AS(Map::fromLayout({
+        "####",
+        "###",
+    }), std::invalid_argument);
+}
+
+TEST_CASE("fromLayout rejects unknown characters", "[map][layout]")
+{
+    REQUIRE_THROWS_AS(Map::fromLayout({
+        "####",
+        "#X.#",
+        "####",
+    }), std::invalid_argument);
+}
