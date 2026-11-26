@@ -6,27 +6,24 @@
 #include "Renderer.h"
 #include "Terminal.h"
 
-namespace
-{
-    // A 20x10 room with walls around the edge and a small pillar in the middle.
-    Map makeStartingMap()
-    {
-        Map map(20, 10);
-        for (int y = 1; y < map.getHeight() - 1; ++y) {
-            for (int x = 1; x < map.getWidth() - 1; ++x) {
-                map.setFloor({x, y});
-            }
-        }
-
-        // Turn a few tiles back into walls: just recreate the room
-        // without carving them. (No setWall yet, so we skip them instead.)
-        return map;
-    }
-}
+const std::vector<std::string> layout = {
+    "##############################",
+    "#............#...............#",
+    "#............#...............#",
+    "#....####....#....######.....#",
+    "#....#.......................#",
+    "#....#.......#.........#.....#",
+    "######.......#####.....#.....#",
+    "#............#.........#.....#",
+    "#....##......#.........###...#",
+    "#.....#......................#",
+    "#.....#......#...............#",
+    "##############################",
+};
 
 int main()
 {
-    Game game(makeStartingMap(), Position{2, 2});
+    Game game(Map::fromLayout(layout), Position{2, 2});
     std::string message = "Use w/a/s/d to move, q to quit.";
 
     while (true)

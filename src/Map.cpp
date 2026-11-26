@@ -41,3 +41,59 @@ Tile Map::getTile(Position pos) const
     }
     return Tile::Wall; // Return Wall if out of bounds
 }
+
+// TEST FUNCTION
+Map Map::fromLayout(const std::vector<std::string>& rows)
+{
+    // Check if map is empty
+    if (rows.empty())
+    {
+        throw std::invalid_argument("This map is empty. Please enter a real map.");
+    }
+
+    // Set up function variables
+    int height = static_cast<int>(rows.size());
+    int width = static_cast<int>(rows[0].size());
+    
+    // Check if any row is a different length from the first
+    for (int i = 0; i < height; ++i)
+    {
+        if (static_cast<int>(rows[i].size()) != width)
+        {
+            throw std::invalid_argument("The map has an incorrect length in row: " + std::to_string(i));
+        }
+    }
+
+    // Check each character to see if they are either a '.' or a '#'    
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            char tile = rows[y][x];
+
+            if (tile != '#' && tile != '.')
+            {
+                throw std::invalid_argument("The map contains a bad character '" + std::string(1, tile) + "' at position " + std::to_string(x) + ", " + std::to_string(y) + ".");
+            }                
+        }
+    }
+
+    // Create a map object using the height and width
+    Map mapFromLayout(width, height);
+
+    // Loop over every tile in the map and call setFloor whenever there is a '.'
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            char tile = rows[y][x];
+
+            if (tile == '.')
+            {
+                mapFromLayout.setFloor({x, y});                            
+            }
+        }
+    }
+
+    return mapFromLayout;
+}

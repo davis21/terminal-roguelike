@@ -1,6 +1,7 @@
 #pragma once
 
 // Different Libraries and headers that will be used in the project.
+#include <string>
 #include <vector>
 #include "Position.h"
 
@@ -34,4 +35,8 @@ public:
 
     // Get the tile type at the given coordinates (x, y). Returns the Tile enum value for the tile. If the coordinates are out of bounds, it returns Tile::Wall.
     Tile getTile(Position pos) const;
+
+    // TEST FUNCTION
+    // Should make a map from a picture
+    static Map fromLayout(const std::vector<std::string>& rows);
 };
